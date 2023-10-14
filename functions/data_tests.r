@@ -5,9 +5,11 @@
 # All tests are packed in a function test_stations_metadata that apples
 # all the aforementioned tests
 
+# Test to determine if variable names in a data frame is as expected.
 test_stations_metadata_colnames <-
   function(df) {
     
+    # Vector of expected col. names
     expected_colnames <- c("id", "name", "latestData", "lat", "lon")
     
     if (all(colnames(df) == expected_colnames) == TRUE) {
@@ -17,9 +19,11 @@ test_stations_metadata_colnames <-
     }
   }
 
+# Test to determine if number of observations in a data frame is reasonable.
 test_stations_metadata_nrows <-
   function(df) {
     
+    # Defined interval of rows
     min_expected_rows <- 5000
     max_expected_rows <- 10000
     
@@ -32,6 +36,7 @@ test_stations_metadata_nrows <-
     }
   }
 
+# Test to determine if variables in a data frame is of the expected type.
 test_stations_metadata_coltypes <-
   function(df) {
     expected_coltypes <-
@@ -44,7 +49,8 @@ test_stations_metadata_coltypes <-
       print("FAIL: Columns do not have the correct specification")
     }
   }
-  
+
+# Test to determine if a data frame contains to many missing values.
 test_stations_metadata_nmissing <-
   function(df) {
     max_miss_vals <- 200
@@ -56,6 +62,8 @@ test_stations_metadata_nmissing <-
     }
   }
 
+# Test to determine if a the time-variable in a data frame is of the 
+# right time zone.
 test_stations_metadata_latestdata_timezone <-
   function(df) {
     
@@ -66,7 +74,8 @@ test_stations_metadata_latestdata_timezone <-
     }
   }
 
-
+# Test to determine if the formatting of a data frame is as expected, and that
+# the number of observations fits specified criteria. 
 test_stations_metadata <- 
   function(df){
     test_stations_metadata_colnames(df)
