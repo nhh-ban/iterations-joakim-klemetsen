@@ -1,4 +1,4 @@
-# Create required function
+# Function transforming meta data to a data frame
 transform_metadata_to_df <- function(data){
   data[[1]] %>% 
     map(as_tibble) %>% 
@@ -12,3 +12,12 @@ transform_metadata_to_df <- function(data){
     ) %>% 
     select(-location)
 }
+
+# Function creating from- and to times as strings.
+to_iso8601 <- function(datetime, offset){
+  datetime <- as_datetime(datetime, tz = "UTC")
+  offset_datetime <- datetime + days(offset) 
+  time <- paste0(iso8601(anytime(offset_datetime)), "Z")
+  return(time)
+}
+
