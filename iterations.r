@@ -64,6 +64,28 @@ stations_metadata_df %>%
   geom_line() + 
   theme_classic()
 
+### 6. Pretty plot
 
+# From 'stations_metadata_df', 
+# retrieve info about sample station
+sample_station <- 
+  stations_metadata_df %>% 
+  filter(latestData > Sys.Date() - days(7)) %>% 
+  sample_n(1)
+
+# Extract station name from sample
+station_name <- sample_station$name
+
+# Use sample data in plotting over four day interval
+sample_station %>% 
+  {vol_qry(
+    id = .$id,
+    from = to_iso8601(.$latestData, -4),
+    to = to_iso8601(.$latestData, 0)
+  )} %>% 
+  GQL(., .url = configs$vegvesen_url) %>%
+  transform_volumes() %>%
+  plotTraffic(., station_name)
+  
 
 
